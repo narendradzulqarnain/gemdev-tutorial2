@@ -1,0 +1,95 @@
+[gd_scene load_steps=11 format=3 uid="uid://wc6i86jqdgcu"]
+
+[ext_resource type="PackedScene" uid="uid://bkxnk3ymcq0sr" path="res://scenes/SnowPlatform.tscn" id="1_bklvr"]
+[ext_resource type="Script" path="res://scenes/PlatformLevel2.gd" id="2_hi7pl"]
+[ext_resource type="PackedScene" uid="uid://y5a4e3ajuy2r" path="res://scenes/StonePlatform.tscn" id="2_lu535"]
+[ext_resource type="PackedScene" uid="uid://datfp8kxjrjg" path="res://scenes/BlueShip.tscn" id="3_7j4t0"]
+[ext_resource type="Texture2D" uid="uid://3ruxfsvp87ub" path="res://assets/playerShip1_green.png" id="4_hwx0t"]
+[ext_resource type="Script" path="res://scenes/ObjectiveArea.gd" id="5_oj4vv"]
+[ext_resource type="Texture2D" uid="uid://dh610bbucs6rh" path="res://assets/fasilkom.png" id="7_ukhc2"]
+[ext_resource type="Script" path="res://scenes/FallArea.gd" id="8_hfrnu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r1iiu"]
+radius = 51.0392
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mjxms"]
+size = Vector2(1031.5, 20)
+
+[node name="SecondLevel" type="Node"]
+
+[node name="SnowPlatform" parent="." instance=ExtResource("1_bklvr")]
+position = Vector2(450, 470)
+
+[node name="SnowPlatform2" parent="." instance=ExtResource("1_bklvr")]
+position = Vector2(671, 92)
+
+[node name="SnowPlatform3" parent="." instance=ExtResource("1_bklvr")]
+position = Vector2(966, 353)
+
+[node name="PlatformBlue" type="Node2D" parent="."]
+position = Vector2(117, 565.099)
+script = ExtResource("2_hi7pl")
+
+[node name="StonePlatform" parent="PlatformBlue" instance=ExtResource("2_lu535")]
+
+[node name="StonePlatform2" parent="PlatformBlue" instance=ExtResource("2_lu535")]
+position = Vector2(70, 0)
+
+[node name="StonePlatform3" parent="PlatformBlue" instance=ExtResource("2_lu535")]
+position = Vector2(-87, -94)
+
+[node name="GreenShip" parent="." instance=ExtResource("3_7j4t0")]
+position = Vector2(154.701, 422)
+lock_rotation = true
+
+[node name="Sprite2D" parent="GreenShip" index="0"]
+texture = ExtResource("4_hwx0t")
+
+[node name="ObjectiveArea" type="Area2D" parent="."]
+position = Vector2(1031, 2)
+script = ExtResource("5_oj4vv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectiveArea"]
+position = Vector2(71, 42)
+shape = SubResource("CircleShape2D_r1iiu")
+
+[node name="Sprite2D" type="Sprite2D" parent="ObjectiveArea/CollisionShape2D"]
+position = Vector2(0.5, -4.01668)
+scale = Vector2(0.593333, 0.593333)
+texture = ExtResource("7_ukhc2")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 546.0
+offset_top = 8.0
+offset_right = 600.0
+offset_bottom = 31.0
+text = "Level 2"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 484.0
+offset_top = 571.0
+offset_right = 644.0
+offset_bottom = 594.0
+text = "Ayo masuk fasilkom!"
+
+[node name="ResetArea" type="Area2D" parent="."]
+position = Vector2(9, 658)
+script = ExtResource("8_hfrnu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ResetArea"]
+position = Vector2(566, 0)
+shape = SubResource("RectangleShape2D_mjxms")
+
+[node name="ResetArea2" type="Area2D" parent="."]
+position = Vector2(2, -27)
+script = ExtResource("8_hfrnu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ResetArea2"]
+position = Vector2(508.25, 0)
+shape = SubResource("RectangleShape2D_mjxms")
+
+[connection signal="body_entered" from="ObjectiveArea" to="ObjectiveArea" method="_on_ObjectiveArea_body_entered"]
+[connection signal="body_entered" from="ResetArea" to="ResetArea" method="_on_body_entered"]
+[connection signal="body_entered" from="ResetArea2" to="ResetArea2" method="_on_body_entered"]
+
+[editable path="GreenShip"]

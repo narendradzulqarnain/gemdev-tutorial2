@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://dc4x61d77nwhm"]
+
+[ext_resource type="Script" path="res://scenes/PlatformBlue.gd" id="1_u2pk5"]
+[ext_resource type="PackedScene" uid="uid://y5a4e3ajuy2r" path="res://scenes/StonePlatform.tscn" id="2_12ppm"]
+[ext_resource type="PackedScene" uid="uid://datfp8kxjrjg" path="res://scenes/BlueShip.tscn" id="3_nv0rg"]
+[ext_resource type="Texture2D" uid="uid://3ruxfsvp87ub" path="res://assets/playerShip1_green.png" id="4_twvo3"]
+[ext_resource type="Script" path="res://scenes/RestartArea.gd" id="5_j73kw"]
+[ext_resource type="Texture2D" uid="uid://dh610bbucs6rh" path="res://assets/fasilkom.png" id="6_g21rp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7xc8i"]
+radius = 51.0392
+
+[node name="Win" type="Node"]
+
+[node name="PlatformBlue" type="Node2D" parent="."]
+position = Vector2(549, 506.099)
+script = ExtResource("1_u2pk5")
+
+[node name="StonePlatform" parent="PlatformBlue" instance=ExtResource("2_12ppm")]
+
+[node name="StonePlatform2" parent="PlatformBlue" instance=ExtResource("2_12ppm")]
+position = Vector2(70, 0)
+
+[node name="GreenShip" parent="." instance=ExtResource("3_nv0rg")]
+position = Vector2(586.701, 363)
+lock_rotation = true
+
+[node name="Sprite2D" parent="GreenShip" index="0"]
+texture = ExtResource("4_twvo3")
+
+[node name="ObjectiveArea" type="Area2D" parent="."]
+position = Vector2(514, 77)
+script = ExtResource("5_j73kw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectiveArea"]
+position = Vector2(71, 42)
+shape = SubResource("CircleShape2D_7xc8i")
+
+[node name="Sprite2D" type="Sprite2D" parent="ObjectiveArea/CollisionShape2D"]
+position = Vector2(0.5, -4.01668)
+scale = Vector2(0.593333, 0.593333)
+texture = ExtResource("6_g21rp")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 454.0
+offset_top = 201.0
+offset_right = 732.0
+offset_bottom = 224.0
+text = "Selamat! Anda diterima di Fasilkom!"
+
+[connection signal="body_entered" from="ObjectiveArea" to="ObjectiveArea" method="_on_ObjectiveArea_body_entered"]
+
+[editable path="GreenShip"]

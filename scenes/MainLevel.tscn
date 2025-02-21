@@ -1,12 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cdoksexcakmop"]
+[gd_scene load_steps=7 format=3 uid="uid://cdoksexcakmop"]
 
 [ext_resource type="PackedScene" uid="uid://y5a4e3ajuy2r" path="res://scenes/StonePlatform.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://datfp8kxjrjg" path="res://scenes/BlueShip.tscn" id="2"]
 [ext_resource type="Script" path="res://scenes/PlatformBlue.gd" id="3"]
 [ext_resource type="Script" path="res://scenes/ObjectiveArea.gd" id="4"]
+[ext_resource type="Texture2D" uid="uid://dh610bbucs6rh" path="res://assets/fasilkom.png" id="5_xsayg"]
 
-[sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(138.75, 79)
+[sub_resource type="CircleShape2D" id="CircleShape2D_wriub"]
+radius = 41.375
 
 [node name="MainLevel" type="Node"]
 
@@ -28,6 +29,26 @@ script = ExtResource("4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectiveArea"]
 position = Vector2(70.625, 40)
-shape = SubResource("1")
+shape = SubResource("CircleShape2D_wriub")
+
+[node name="Sprite2D" type="Sprite2D" parent="ObjectiveArea/CollisionShape2D"]
+position = Vector2(0.375, 1)
+scale = Vector2(0.516667, 0.516667)
+texture = ExtResource("5_xsayg")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 540.0
+offset_top = 12.0
+offset_right = 594.0
+offset_bottom = 35.0
+text = "Level 1"
+
+[node name="Label2" type="Label" parent="Label"]
+layout_mode = 0
+offset_left = -67.0
+offset_top = 586.0
+offset_right = 93.0
+offset_bottom = 609.0
+text = "Ayo masuk fasilkom!"
 
 [connection signal="body_entered" from="ObjectiveArea" to="ObjectiveArea" method="_on_ObjectiveArea_body_entered"]
